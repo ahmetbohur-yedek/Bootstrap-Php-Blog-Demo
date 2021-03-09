@@ -4,6 +4,7 @@ $socialMedia = new SocialMedia;
 $site = new Site;
 $menu = new Menu;
 $design = new Design;
+$post = new Post;
 
 ## Site URL
 $site_url = "http://192.168.1.31/urhobablog/"; ## Site URLsini lütfen / ile birlikte yazın.
@@ -24,5 +25,8 @@ $popper_js_location = "" . $site_url . "other/popper/popper-1.16/popper.min.js";
 $bootstrap_css_location = "" . $site_url . "other/bootstrap/bootstrap-4.0.0/css/bootstrap.min.css";
 $bootstrap_js_location = "" . $site_url . "other/bootstrap/bootstrap-4.0.0/js/bootstrap.min.js";
 
-## Font Awesome Manageri
+## Font Awesome Manager
 $fontawesome_location = "" . $site_url . "other/fontawesome/fontawesome-free-5.15.2-web/css/all.css";
+
+## CSS Manager
+$css_location = "".$site_url."other/css/style.css";

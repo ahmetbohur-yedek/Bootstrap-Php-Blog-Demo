@@ -1,4 +1,4 @@
-<footer class="bg-<?PHP $design->BgColorControl(); ?> text-center text-white border-top">
+<footer  class="border border-bottom-0 rounded-top bg-<?PHP $design->BgColorControl(); ?> text-center text-<?PHP $design-> TextColorControl(); ?> border-top">
     <div class="container p-4">
         <section class="mb-4">
             <?PHP

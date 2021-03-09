@@ -11,6 +11,7 @@ include_once 'config/function.php';
 
   <link rel="stylesheet" href="<?PHP echo $fontawesome_location; ?>" />
   <link href="<?PHP echo $bootstrap_css_location; ?>" rel="stylesheet" />
+  <link href="<?PHP echo $css_location; ?>" rel="stylesheet" />
 
   <title><?PHP $site->SiteName(); ?></title>
 </head>
