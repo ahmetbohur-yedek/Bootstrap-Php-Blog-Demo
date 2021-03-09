@@ -1,2 +1,2 @@
 # Bootstrap-Php-Blog-Demo
-Bootstrap Blog Demo
+Php and Bootstrap base blog script.
