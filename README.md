@@ -1,2 +1,2 @@
 # Bootstrap-Php-Blog-Demo
-Php and Bootstrap base blog script.
+Php ,Bootstrap and Font Awesome base blog script.
