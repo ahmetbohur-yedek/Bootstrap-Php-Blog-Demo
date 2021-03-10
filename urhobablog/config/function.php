@@ -56,6 +56,11 @@ class Design
         echo $GLOBALS["site"]->SocialButtonColor();
     }
 
+    function BackToTopButtonColorControl()
+    {
+        echo $GLOBALS["site"]->BackToTopButtonColor();
+    }
+
 
     function ContainerControl()
     {
@@ -167,6 +172,15 @@ class Site
         $query = $GLOBALS["db_connection"]->query("SELECT * FROM ub_sites")->fetch(PDO::FETCH_ASSOC);
         if ($query) {
             return $query["ub_siteButtonColor"];
+        }
+        DBClose();
+    }
+    function BackToTopButtonColor()
+    {
+        DBConnect();
+        $query = $GLOBALS["db_connection"]->query("SELECT * FROM ub_sites")->fetch(PDO::FETCH_ASSOC);
+        if ($query) {
+            return $query["ub_backToTopButtonColor"];
         }
         DBClose();
     }
