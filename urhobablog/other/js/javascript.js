@@ -1,3 +1,4 @@
+// Back to top function star
 $(document).ready(function() {
     $(window).scroll(function() {
         if ($(this).scrollTop() > 50) {
@@ -14,3 +15,9 @@ $(document).ready(function() {
         return false;
     });
 });
+
+// Back to top function end
+
+// Image drag reject start
+$('img').on('dragstart', function(event) { event.preventDefault(); });
+// Image drag reject end

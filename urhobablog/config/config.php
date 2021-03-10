@@ -6,6 +6,7 @@ $menu = new Menu;
 $design = new Design;
 $post = new Post;
 
+
 ## Site URL
 $site_url = "http://192.168.1.31/urhobablog/"; ## Site URLsini lütfen / ile birlikte yazın.
 
