@@ -16,7 +16,7 @@ $db_password = "root";
 $db_database = "urhobablog";
 
 ## JQuery Manager
-$jquery_js_location = "" . $site_url . "other/jquery/jquery-3.3.1/jquery-3.3.1.slim.min.js";
+$jquery_js_location = "" . $site_url . "other/jquery/jquery-3.6.0/jquery-3.6.0.min.js";
 
 ## Popper Manager
 $popper_js_location = "" . $site_url . "other/popper/popper-1.16/popper.min.js";
@@ -30,3 +30,6 @@ $fontawesome_location = "" . $site_url . "other/fontawesome/fontawesome-free-5.1
 
 ## CSS Manager
 $css_location = "".$site_url."other/css/style.css";
+
+## JS Manager
+$js_location = "".$site_url."other/js/javascript.js";

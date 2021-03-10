@@ -12,6 +12,7 @@ include_once 'config/function.php';
   <link rel="stylesheet" href="<?PHP echo $fontawesome_location; ?>" />
   <link href="<?PHP echo $bootstrap_css_location; ?>" rel="stylesheet" />
   <link href="<?PHP echo $css_location; ?>" rel="stylesheet" />
+  
 
   <title><?PHP $site->SiteName(); ?></title>
 </head>
@@ -25,9 +26,14 @@ include_once 'config/function.php';
     include_once 'components/footer.php';
     ?>
   </div>
+    <?PHP
+    include_once 'components/back_to_top.php';
+    ?>
   <script src="<?PHP echo $jquery_js_location; ?>"></script>
+  <script src="<?PHP echo $js_location; ?>"></script>
   <script src="<?PHP echo $popper_js_location; ?>"></script>
   <script src="<?PHP echo $bootstrap_js_location; ?>"></script>
+  
 </body>
 
 </html>
