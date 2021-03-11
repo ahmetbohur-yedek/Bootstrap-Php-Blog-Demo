@@ -125,7 +125,7 @@ class ErrorPages
             echo '<div class="row">';
             echo '<div class="col-lg-6  mb-2"><a href="' . $GLOBALS["site_url"] . '" class="mt-2 mb-2 btn btn-' . $GLOBALS["site"]->SiteButtonColor() . '">' . $GLOBALS["lang"]["mainPage"] . '</a></div>';
             echo '<div class="col-lg-6  mb-2"><span class="form-inline"><input id="search404" class="form-control mt-2 mb-2 mr-2" name="search" type="search" placeholder="' . $GLOBALS["lang"]["search"] . '" aria-label="Search">
-            <button onClick="search404Navigate();" class="btn btn-outline-' . $query["dd_buttonColor"] . ' mt-2 mb-2" type="submit">' . $GLOBALS["lang"]["search"] . ' <i class="fas fa-search"></i></button>
+            <button onClick="search404Navigate(this);" class="btn btn-outline-' . $query["dd_buttonColor"] . ' mt-2 mb-2" type="submit">' . $GLOBALS["lang"]["search"] . ' <i class="fas fa-search"></i></button>
           </span></div>';
             echo '</div>';
             echo '</div></div></div></div></div></div>';
@@ -150,7 +150,7 @@ class ErrorPages
             echo '<div class="row">';
             echo '<div class="col-lg-6  mb-2"><a href="' . $GLOBALS["site_url"] . '" class="mt-2 mb-2 btn btn-' . $GLOBALS["site"]->SiteButtonColor() . '">' . $GLOBALS["lang"]["mainPage"] . '</a></div>';
             echo '<div class="col-lg-6  mb-2"><span class="form-inline"><input id="search404" class="form-control mt-2 mb-2 mr-2" name="search" type="search" placeholder="' . $GLOBALS["lang"]["search"] . '" aria-label="Search">
-            <button onClick="search404Navigate();" class="btn btn-outline-' . $query["dd_buttonColor"] . ' mt-2 mb-2" type="submit">' . $GLOBALS["lang"]["search"] . ' <i class="fas fa-search"></i></button>
+            <button onClick="search404Navigate(this);" class="btn btn-outline-' . $query["dd_buttonColor"] . ' mt-2 mb-2" type="submit">' . $GLOBALS["lang"]["search"] . ' <i class="fas fa-search"></i></button>
           </span></div>';
             echo '</div>';
             echo '</div></div></div></div></div></div>';
@@ -175,7 +175,7 @@ class ErrorPages
             echo '<div class="row">';
             echo '<div class="col-lg-6  mb-2"><a href="' . $GLOBALS["site_url"] . '" class="mt-2 mb-2 btn btn-' . $GLOBALS["site"]->SiteButtonColor() . '">' . $GLOBALS["lang"]["mainPage"] . '</a></div>';
             echo '<div class="col-lg-6  mb-2"><span class="form-inline"><input id="search404" class="form-control mt-2 mb-2 mr-2" name="search" type="search" placeholder="' . $GLOBALS["lang"]["search"] . '" aria-label="Search">
-            <button onClick="search404Navigate();" class="btn btn-outline-' . $query["dd_buttonColor"] . ' mt-2 mb-2" type="submit">' . $GLOBALS["lang"]["search"] . ' <i class="fas fa-search"></i></button>
+            <button onClick="search404Navigate(this);" class="btn btn-outline-' . $query["dd_buttonColor"] . ' mt-2 mb-2" type="submit">' . $GLOBALS["lang"]["search"] . ' <i class="fas fa-search"></i></button>
           </span></div>';
             echo '</div>';
             echo '</div></div></div></div></div></div>';
@@ -186,7 +186,8 @@ class ErrorPages
 
 class Post
 {
-    function PostShow($search){
+    function PostShow($search)
+    {
         echo "böyle bir şeyyoh";
     }
 
@@ -274,8 +275,7 @@ class Post
                 }
                 echo '</div></div>';
             }
-        }else{
-            
+        } else {
         }
         DBClose();
     }
@@ -449,6 +449,23 @@ class Post
 
 class Menu
 {
+    function SearchMenu()
+    {
+        echo '<div class="col-lg-12 mt-2 mb-2"><div class="card text-' . $GLOBALS["site"]->SiteTextColor() . ' bg-' . $GLOBALS["site"]->SiteNavColor() . '">';
+        echo '<div class="card-header"><h3>
+        ' . $GLOBALS["lang"]["searchIt"] . '</h3>
+      </div>';
+        echo '<div class="card text-' . $GLOBALS["site"]->SiteTextColor() . ' bg-' . $GLOBALS["site"]->SiteBgColor() . ' m-4">';
+        echo '<img class="card-img-top" src="'.$GLOBALS["site"]->SiteSearcImage() . '" alt="' . $GLOBALS["lang"]["searchIt"] . '">';
+        echo '<div class="card-body">';       
+        echo '<p class="card-text">Umduğunu bulmanın en iyi yolu aramaktan geçer</p>';
+        echo '<span class="form-inline">
+        <input id="searchMenu" class="form-control mt-2 mb-2 w-100" name="search" type="search" placeholder="' . $GLOBALS["lang"]["search"] . '" aria-label="Search">
+        <button onClick="searchMenuNavigate(this);" class="btn w-100 btn-outline-' . $GLOBALS["site"]->BackToTopButtonColor() . ' mt-2 mb-2" type="submit">' . $GLOBALS["lang"]["search"] . ' <i class="fas fa-search"></i></button>
+      </span>';
+        echo '</div></div></div></div>';
+    }
+
     function HeaderMenu()
     {
         DBConnect();
@@ -484,7 +501,15 @@ class Site
         }
         DBClose();
     }
-
+    function SiteSearcImage()
+    {
+        DBConnect();
+        $query = $GLOBALS["db_connection"]->query("SELECT * FROM ub_sites")->fetch(PDO::FETCH_ASSOC);
+        if ($query) {
+             return $query["ub_searchImage"];
+        }
+        DBClose();
+    }
     function SiteBgColor()
     {
         DBConnect();

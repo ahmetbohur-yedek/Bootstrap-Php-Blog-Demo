@@ -22,6 +22,7 @@
                 <div class="col-12">
                     <div class="card-group">
                         <?PHP
+                        $menu->SearchMenu();
                         $post->LastPostShow();
                         $post->MostShowingPostShow();
                         ?>

@@ -14,6 +14,7 @@ class Language{
             'readAbout' => "Devamını oku",
             'mainPage' => "Anasayfa",
             'search' => "Ara",
+            'searchIt' => "Hemen Bul",
         
         );
         return $lang;
