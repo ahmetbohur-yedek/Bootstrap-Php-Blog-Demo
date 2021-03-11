@@ -241,7 +241,7 @@ class Post
             echo ' <div class="card-body">
             <h5 class="card-title">' . $query["post_header"] . '</h5>';
             echo '<p class="card-text">' . TextShorter($query["post_content"], 75) . '</p>';
-            echo '<a href="/post/' . $query["post_url"] . '" class="btn btn-' . $GLOBALS["site"]->SitePopulerPostButtonColor() . '">' . $GLOBALS["lang"]["readAbout"] . '</a>';
+            echo '<a href="/post/' . $query["post_url"] . '" class="btn w-100 btn-' . $GLOBALS["site"]->SitePopulerPostButtonColor() . '">' . $GLOBALS["lang"]["readAbout"] . '</a>';
             echo '</div></div></div></div>';
         }
         DBClose();
@@ -270,7 +270,7 @@ class Post
                     echo ' <div class="card-body">
             <h5 class="card-title">' . $row["post_header"] . '</h5>';
                     echo '<p class="card-text">' . TextShorter($row["post_content"], 75) . '</p>';
-                    echo '<a href="/post/' . $row["post_url"] . '" class="btn btn-' . $GLOBALS["site"]->SitePopulerPostButtonColor() . '">' . $GLOBALS["lang"]["readAbout"] . '</a>';
+                    echo '<a href="/post/' . $row["post_url"] . '" class="btn w-100 btn-' . $GLOBALS["site"]->SitePopulerPostButtonColor() . '">' . $GLOBALS["lang"]["readAbout"] . '</a>';
                     echo '</div></div>';
                 }
                 echo '</div></div>';

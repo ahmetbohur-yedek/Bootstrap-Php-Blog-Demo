@@ -10,13 +10,18 @@ RewriteRule ^404$ 404.php [L,QSA]
 
 
 # Yeni bir yönlendirme kuralı ekliyoruz
+RewriteRule ^page/([0-9a-zA-Z-_]+)/$  index.php?page=$1 [L,QSA]
 RewriteRule ^page/([0-9a-zA-Z-_]+)$  index.php?page=$1 [L,QSA]
 RewriteRule ^page/$  index.php?page=1 [L,QSA]
 RewriteRule ^page$  index.php?page=1 [L,QSA]
 
-
-
 RewriteRule ^search/([0-9a-zA-Z-_]+)/page/([0-9a-zA-Z-_]+)$ search.php?search=$1&page=$2 [L,QSA]
+RewriteRule ^search/([0-9a-zA-Z-_]+)/page/$ search.php?search=$1&page=1 [L,QSA]
+RewriteRule ^search/([0-9a-zA-Z-_]+)/page$ search.php?search=$1&page=1 [L,QSA]
+RewriteRule ^search/([0-9a-zA-Z-_]+)/$ search.php?search=$1&page=1 [L,QSA]
+RewriteRule ^search/([0-9a-zA-Z-_]+)$ search.php?search=$1&page=1 [L,QSA]
 
 RewriteRule ^post/(([A-Za-z0-9]+[-]+[A-Za-z0-9]+)+[/])$  post.php?link=$1 [L,QSA]
+RewriteRule ^post/(([A-Za-z0-9]+[-]+[A-Za-z0-9]+)+)$  post.php?link=$1 [L,QSA]
+
 
