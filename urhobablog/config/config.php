@@ -5,10 +5,11 @@ $site = new Site;
 $menu = new Menu;
 $design = new Design;
 $post = new Post;
+$error = new ErrorPages;
 
 
 ## Site URL
-$site_url = "http://192.168.1.31/urhobablog/"; ## Site URLsini lütfen / ile birlikte yazın.
+$site_url = "http://192.168.1.31/"; ## Site URLsini lütfen / ile birlikte yazın.
 
 ## Database Connection Settings
 $db_host = "localhost";

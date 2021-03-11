@@ -1,3 +1,6 @@
+var siteURL = "http://192.168.1.31/";
+
+
 // Back to top function star
 $(document).ready(function() {
     $(window).scroll(function() {
@@ -21,3 +24,12 @@ $(document).ready(function() {
 // Image drag reject start
 $('img').on('dragstart', function(event) { event.preventDefault(); });
 // Image drag reject end
+
+// Search page404 button start
+function search404Navigate(){
+    var button = document.getElementById('search404');
+    var keyword = button.value;
+    var link = siteURL +"search/" + keyword + "/page/1";
+    window.location = link;
+}
+// Search page404 button end
