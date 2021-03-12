@@ -1,5 +1,10 @@
 var siteURL = "http://192.168.1.31/";
 
+// Slider settings start
+$('.carousel').carousel({
+    interval: 2000
+});
+// Slider settings end
 
 // Back to top function star
 $(document).ready(function () {
