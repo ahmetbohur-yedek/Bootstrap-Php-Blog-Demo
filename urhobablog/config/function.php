@@ -26,6 +26,28 @@ function TextShorter($text, $text_lenght)
     return $new_text;
 }
 
+function GetActiveLink(){
+    $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+    return $actual_link;
+}
+
+function ShareToSocialMedia(){
+    $socialMedia = '<span class="ml-2 mr-2">';
+    $socialMedia .= '<a class="btn btn-outline-'.$GLOBALS["site"]->SocialButtonColor().' btn-floating m-1" href="https://www.facebook.com/sharer/sharer.php?u='.GetActiveLink().'" target="_blank" rel="noopener"><i class="fab fa-facebook"></i></a>';
+    $socialMedia .= '<a class="btn btn-outline-'.$GLOBALS["site"]->SocialButtonColor().' btn-floating m-1" href="https://twitter.com/intent/tweet?text='.GetActiveLink().'" target="_blank" rel="noopener"><i class="fab fa-twitter"></i></a>';
+    $socialMedia .= "</span>";
+    return $socialMedia;
+}
+
+function TagTrimAndShow($tags){
+   $new_tags = explode(",", $tags);
+   $return = '';
+   foreach($new_tags as $row){
+       $return .= '<a class="btn btn-outline-'.$GLOBALS["site"]->SocialButtonColor().' m-2" href="/tag/'.$row.'">'.$row.'</a>';
+   }
+   return $return;
+}
+
 function ConvertSEOFriendText($text)
 {
     $text = trim($text);
@@ -35,7 +57,6 @@ function ConvertSEOFriendText($text)
     $text = preg_replace('~[^ a-z0-9_.]~', ' ', $text);
     $text = preg_replace('~ ~', '-', $text);
     $text = preg_replace('~-+~', '-', $text);
-    $text .= "/";
     return $text;
 }
 
@@ -186,9 +207,84 @@ class ErrorPages
 
 class Post
 {
+    function PostHit($search){
+
+    }
+
     function PostShow($search)
     {
-        echo "böyle bir şeyyoh";
+        DBConnect();
+        $query = $GLOBALS["db_connection"]->query("SELECT * FROM ub_posts WHERE post_url = '{$search}'")->fetch(PDO::FETCH_ASSOC);
+        if ($query) {
+            echo '<div class="row mt-4 mb-4"><div class="col-12"><div class="card-group">';
+            echo '<div class="col-lg-12 mt-2 mb-2"><div class="card text-' . $GLOBALS["site"]->SiteTextColor() . ' bg-' . $GLOBALS["site"]->SiteNavColor() . '">';
+            echo '<div class="card-header"><h3>
+            ' . $query["post_header"] . '</h3>
+          </div>';
+            echo '<img class="card-img-top" src="' . $query["post_image_url"] . '" alt="' . $query["post_header"] . '">';
+            echo '<div class="card-body"><h1 class="card-title">' . $query["post_header"] . '</h1>';
+            echo '<p class="card-text">' . $query["post_content"] . '</p>';
+            echo '<div class="card mt-4 bg-' . $GLOBALS["site"]->SiteBgColor() . '"><div class="card-body">
+            <h5 class="card-title mb-4">'.$GLOBALS["lang"]['postChart'].' <span class="mr-2 ml-2">'.$query["post_header"].'</span></h5>
+            <p class="card-text m-2">'.$GLOBALS["lang"]['postShareTime'].' <span class="m-2">'.$query["post_date"].'</span></p>
+            <p class="card-text m-2">'.$GLOBALS["lang"]['postTimesRead'].' <span class="m-2">'.$query["post_reads"].'</span></p>
+            <p class="card-text m-2">'.$GLOBALS["lang"]['postTags'].' '.TagTrimAndShow($query["post_tags"]).'</p>
+            <p class="card-text m-2">'.$GLOBALS["lang"]['postShare'].' '.ShareToSocialMedia().'</p>            
+            </div></div>';
+            echo '</div></div></div></div></div></div>';
+        } else {
+            $GLOBALS["error"]->NotFoundPage();
+        }
+        DBClose();
+    }
+
+    function CarouselPosts()
+    {
+        DBConnect();
+
+        $query = $GLOBALS["db_connection"]->query("SELECT * FROM ub_posts ORDER BY post_id DESC LIMIT 3", PDO::FETCH_ASSOC);
+        if ($query) {
+            if ($query->rowCount()) {
+                echo '<div id="carouselExampleIndicators" class="carousel slide mt-4" data-ride="carousel">
+       <ol class="carousel-indicators">
+         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+         <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+         <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+       </ol>
+       <div class="carousel-inner">';
+                foreach ($query as $i => $row) {
+                    if ($i == 0) {
+                        echo '<div class="carousel-item active">';
+                    } else {
+                        echo '<div class="carousel-item">';
+                    }
+                    echo '
+                        <a href="/post/' . $row["post_url"] . '">
+                        <img class="d-block w-100 rounded" src="' . $row["post_image_url"] . '" alt="Second slide">
+                        <div class="carousel-bg-' . $GLOBALS["site"]->SiteNavColor() . ' rounded carousel-caption d-none d-md-block">
+                            <h5>' . $row["post_header"] . '</h5>
+                            <p>' . TextShorter($row["post_content"], 75) . '</p>
+                        </div>
+                        </a>
+                    </div>
+                    ';
+                }
+                echo '
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="sr-only">' . $GLOBALS["lang"]["previous"] . '</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="sr-only">' . $GLOBALS["lang"]["next"] . '</span>
+                </a>
+              </div>
+              ';
+            }
+        }
+
+        DBClose();
     }
 
     function SearchedPostShow($page, $search)
@@ -204,7 +300,7 @@ class Post
         $post_started = ($page - 1) * $GLOBALS["site"]->SiteMainPagePostCount();
         DBConnect();
 
-        $query = $GLOBALS["db_connection"]->query("SELECT * FROM ub_posts WHERE  CONCAT(post_content, post_header) COLLATE UTF8_GENERAL_CI LIKE '%{$search}%' ORDER BY post_id DESC LIMIT {$post_started} , {$GLOBALS["site"]->SiteMainPagePostCount()}", PDO::FETCH_ASSOC);
+        $query = $GLOBALS["db_connection"]->query("SELECT * FROM ub_posts WHERE  CONCAT(post_content, post_header) COLLATE UTF8MB4_GENERAL_CI LIKE '%{$search}%' ORDER BY post_id DESC LIMIT {$post_started} , {$GLOBALS["site"]->SiteMainPagePostCount()}", PDO::FETCH_ASSOC);
         if ($query) {
             if ($query->rowCount()) {
 
@@ -327,7 +423,7 @@ class Post
     function SearchedPostNumber($search)
     {
         DBConnect();
-        $query = $GLOBALS["db_connection"]->query("SELECT COUNT(*) FROM ub_posts WHERE  CONCAT(post_content, post_header) COLLATE UTF8_GENERAL_CI LIKE '%{$search}%'")->fetchColumn();
+        $query = $GLOBALS["db_connection"]->query("SELECT COUNT(*) FROM ub_posts WHERE  CONCAT(post_content, post_header) COLLATE UTF8MB4_GENERAL_CI LIKE '%{$search}%'")->fetchColumn();
         if ($query) {
             return $query;
         }
@@ -456,8 +552,8 @@ class Menu
         ' . $GLOBALS["lang"]["searchIt"] . '</h3>
       </div>';
         echo '<div class="card text-' . $GLOBALS["site"]->SiteTextColor() . ' bg-' . $GLOBALS["site"]->SiteBgColor() . ' m-4">';
-        echo '<img class="card-img-top" src="'.$GLOBALS["site"]->SiteSearcImage() . '" alt="' . $GLOBALS["lang"]["searchIt"] . '">';
-        echo '<div class="card-body">';       
+        echo '<img class="card-img-top" src="' . $GLOBALS["site"]->SiteSearcImage() . '" alt="' . $GLOBALS["lang"]["searchIt"] . '">';
+        echo '<div class="card-body">';
         echo '<p class="card-text">Umduğunu bulmanın en iyi yolu aramaktan geçer</p>';
         echo '<span class="form-inline">
         <input id="searchMenu" class="form-control mt-2 mb-2 w-100" name="search" type="search" placeholder="' . $GLOBALS["lang"]["search"] . '" aria-label="Search">
@@ -506,7 +602,7 @@ class Site
         DBConnect();
         $query = $GLOBALS["db_connection"]->query("SELECT * FROM ub_sites")->fetch(PDO::FETCH_ASSOC);
         if ($query) {
-             return $query["ub_searchImage"];
+            return $query["ub_searchImage"];
         }
         DBClose();
     }

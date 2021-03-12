@@ -4,12 +4,13 @@
             <?PHP
 
             if (PageDedect() == "index.php") {
+                $post->CarouselPosts();
                 $post->MainPageShowPosts($_GET["page"]);
             }
             if (PageDedect() == "post.php") {
-                $post->PostShow($GET["link"]);
+                $post->PostShow($_GET["link"]);
             }
-            if(PageDedect() == "search.php"){
+            if (PageDedect() == "search.php") {
                 $post->SearchedPostShow($_GET["page"], $_GET["search"]);
             }
             if (PageDedect() == "404.php") {

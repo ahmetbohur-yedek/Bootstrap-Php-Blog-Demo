@@ -15,6 +15,13 @@ class Language{
             'mainPage' => "Anasayfa",
             'search' => "Ara",
             'searchIt' => "Hemen Bul",
+            'previous' => "Önceki",
+            'next' => 'Sonraki',
+            'postShareTime' => '<i class="fas fa-clock"></i>',
+            'postTimesRead' => '<i class="fas fa-eye"></i>',
+            'postTags' => '<i class="fas fa-tags"></i>',
+            'postChart' => '<i class="fas fa-chart-pie"></i>',
+            'postShare' => '<i class="fas fa-share-alt"></i>',
         
         );
         return $lang;

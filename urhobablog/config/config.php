@@ -17,6 +17,9 @@ $db_username = "root";
 $db_password = "root";
 $db_database = "urhobablog";
 
+## Favicon Ici
+$favicon_location = "".$site_url."/images/favicon/favicon.ico";
+
 ## JQuery Manager
 $jquery_js_location = "" . $site_url . "other/jquery/jquery-3.6.0/jquery-3.6.0.min.js";
 
